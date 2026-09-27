@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BadminTour - Suka Nepak Internal Vol.3 2026</title>
+    <title>BadminTour - Ultimate Tournament Management</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -86,32 +86,9 @@
       .standing-table tr:hover {
         background-color: #f8fafc;
       }
-      /* Footer layout fix: footer stays in normal document flow and never covers content. */
-      body[data-page="public"] {
-        min-height: 100svh;
-      }
-
-      body[data-page="public"] > main {
-        min-height: 0;
-      }
-
-      body[data-page="public"] > footer {
-        position: relative;
-        inset: auto;
-        margin-top: 0;
-      }
-
-      @media (max-width: 640px) {
-        body[data-page="public"] > footer .max-w-7xl {
-          padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
-        }
-      }
     </style>
   </head>
-  <body
-    data-page="public"
-    class="text-slate-800 min-h-screen flex flex-col overflow-x-hidden overflow-y-auto bg-slate-50"
-  >
+  <body class="text-slate-800 h-screen flex flex-col overflow-hidden">
     <header class="flex-shrink-0 z-10 shadow-lg">
       <!-- Hero Banner Section -->
       <div
@@ -213,11 +190,20 @@
               <i class="fas fa-trophy text-yellow-500"></i>Podium
             </button>
           </li>
+          <li>
+            <button
+              onclick="switchTab('admin')"
+              id="tab-admin"
+              class="tab-btn px-3 sm:px-4 py-2.5 my-2 text-xs sm:text-sm font-bold rounded-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors shadow-sm ml-2 flex items-center gap-1.5"
+            >
+              <i class="fas fa-cog"></i> Admin
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
 
-    <main class="flex-grow relative bg-slate-50">
+    <main class="flex-grow relative overflow-hidden bg-slate-50">
       <!-- VIEW 1: Peserta (Individuals) -->
       <section
         id="view-peserta"
@@ -530,86 +516,250 @@
         </div>
       </section>
 
-    </main>
-    <!-- PROFESSIONAL FOOTER IDENTIFICATION -->
-    <footer
-      class="bg-slate-900 text-slate-400 border-t border-slate-800 flex-shrink-0 relative z-10"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-center">
-          <!-- Community Profile -->
+      <!-- VIEW 6: Admin Panel -->
+      <section
+        id="view-admin"
+        class="view-section hidden h-full overflow-y-auto p-3 sm:p-6 lg:p-8 bg-slate-50"
+      >
+        <div class="max-w-6xl mx-auto pb-16">
           <div
-            class="flex flex-col items-center md:items-start text-center md:text-left"
+            class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-6 gap-3 border-b border-slate-200 pb-4"
           >
-            <div class="flex items-center gap-2 mb-2">
-              <div>
-                <img src="img/logo.jpeg" class="rounded-full w-10" alt="" />
-              </div>
-              <span class="text-white font-extrabold text-lg tracking-tight"
-                >Suka Nepak</span
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">
+                Admin Control Panel
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Kelola skor, klasemen, dan sinkronisasi data bracket turnamen.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+              <button
+                onclick="resolveGroupToKnockout()"
+                class="flex-1 lg:flex-none bg-indigo-600 hover:bg-indigo-700 text-white px-3 sm:px-4 py-2 rounded shadow text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center"
               >
+                <i class="fas fa-random mr-2"></i>Generate Bracket
+              </button>
+              <button
+                onclick="syncNow()"
+                class="flex-1 lg:flex-none bg-emerald-600 hover:bg-emerald-700 text-white px-3 sm:px-4 py-2 rounded shadow text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center"
+              >
+                <i class="fas fa-cloud-arrow-down mr-2"></i>Sync Now
+              </button>
+              <button
+                onclick="seedDummyData()"
+                class="flex-1 lg:flex-none bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded shadow text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center"
+              >
+                <i class="fas fa-magic mr-2"></i>Reset Demo 16 Tim
+              </button>
             </div>
-            <div class="flex items-center gap-2 mb-2 mt-2">
-              <div>
-                <a href="http://annurimat.vercel.app" target="_blank" rel="noopener noreferrer"><img src="img/device-shot.png" class="rounded-lg w-40 sm:w-40 max-h-24 object-contain" alt="Pratinjau aplikasi BadminTour" /></a>
-              </div>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Badminton Turnamen 2026
-            </p>
           </div>
 
-          <!-- Event Details -->
-          <div class="flex flex-col items-center text-center">
-            <span
-              class="text-xs uppercase font-bold text-slate-300 tracking-widest mb-1"
-              >Official Event</span
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Admin: Group Matches -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[500px] sm:h-[550px]"
             >
-            <h4 class="text-white font-bold text-sm">
-              Suka Nepak Tournament Internal Vol.3 2026
-            </h4>
-            <p class="text-xs text-slate-400 mt-0.5">
-              <i class="fas fa-map-pin mr-1 text-blue-400"></i> Gor
-              Pasanggrahan, Bandung
-            </p>
-          </div>
-
-          <!-- Developer & Tech Credits -->
-          <div
-            class="flex flex-col items-center md:items-end text-center md:text-right"
-          >
-            <span
-              class="text-xs uppercase font-bold text-slate-300 tracking-widest mb-1"
-              >Developed By</span
-            >
-            <p class="text-xs font-family flex items-center gap-1.5">
-              <i class="fas fa-code text-blue-400"></i> Suka Nepak Tech
-              Division
-            </p>
-            <p class="text-[11px] text-slate-500 mt-1">
-              Supprorted by
-              <a
-                href="https://annurimat.vercel.app"
-                target="_blank"
-                class="font-black text-white border-b-2 border-lime-300"
+              <div
+                class="bg-slate-800 text-white px-4 sm:px-6 py-3.5 font-bold text-sm flex justify-between items-center"
               >
-                <!-- <img src="img/AI.png" class="w-10" alt=""> -->
-                Annur Imat - Creative Developer
-              </a>
-            </p>
+                <span
+                  ><i class="fas fa-layer-group mr-2 text-blue-400"></i>Fase
+                  Grup Matches</span
+                >
+              </div>
+              <div class="overflow-y-auto p-2" id="admin-group-matches"></div>
+            </div>
+
+            <!-- Admin: Knockout Matches -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[500px] sm:h-[550px]"
+            >
+              <div
+                class="bg-slate-800 text-white px-4 sm:px-6 py-3.5 font-bold text-sm flex justify-between items-center"
+              >
+                <span
+                  ><i class="fas fa-sitemap mr-2 text-blue-400"></i>Bracket
+                  Knockout</span
+                >
+              </div>
+              <div
+                class="overflow-y-auto p-2"
+                id="admin-knockout-matches"
+              ></div>
+            </div>
           </div>
         </div>
+      </section>
+    </main>
 
+    <!-- Match Score Update Modal -->
+    <div
+      id="score-modal"
+      class="hidden fixed inset-0 z-50 flex items-center justify-center modal-bg p-3 sm:p-4"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all border border-slate-200"
+      >
         <div
-          class="border-t border-slate-800/80 mt-4 pt-3 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500"
+          class="bg-slate-800 px-5 sm:px-6 py-3.5 sm:py-4 flex justify-between items-center text-white"
         >
-          <p>&copy; 2026 Suka Nepak Community. All rights reserved.</p>
-          <!-- <p class="mt-2 sm:mt-0 flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> System Online & Synchronized
-              </p> -->
+          <div>
+            <h3 class="font-bold text-base sm:text-lg">
+              Update Skor Pertandingan
+            </h3>
+            <p
+              class="text-[11px] sm:text-xs text-slate-400"
+              id="modal-match-id"
+            >
+              Match ID: -
+            </p>
+          </div>
+          <button
+            onclick="closeModal()"
+            class="text-slate-400 hover:text-white transition bg-slate-700 hover:bg-slate-600 rounded-full w-8 h-8 flex items-center justify-center"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="p-4 sm:p-6">
+          <!-- Teams Header -->
+          <div
+            class="flex items-center justify-between mb-5 bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm"
+          >
+            <div class="flex flex-col items-center w-[42%] text-center">
+              <span
+                id="modal-team1-name"
+                class="font-bold text-slate-800 text-xs sm:text-sm md:text-base truncate w-full"
+                >Team 1</span
+              >
+            </div>
+            <div class="w-[16%] text-center">
+              <span
+                class="text-[10px] font-black text-slate-400 uppercase bg-slate-200 px-2 py-1 rounded-full"
+                >VS</span
+              >
+            </div>
+            <div class="flex flex-col items-center w-[42%] text-center">
+              <span
+                id="modal-team2-name"
+                class="font-bold text-slate-800 text-xs sm:text-sm md:text-base truncate w-full"
+                >Team 2</span
+              >
+            </div>
+          </div>
+
+          <!-- Input Sets -->
+          <div
+            class="mb-5 bg-white border border-slate-200 rounded-xl p-3 sm:p-4"
+          >
+            <label
+              class="block text-xs sm:text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide"
+              >Total Set Menang</label
+            >
+            <div class="flex items-center justify-center gap-6 sm:gap-8">
+              <div class="flex flex-col items-center">
+                <input
+                  type="number"
+                  id="modal-t1-sets"
+                  min="0"
+                  max="3"
+                  class="w-16 sm:w-20 text-center text-xl sm:text-2xl font-black text-blue-600 px-2 py-2 sm:py-3 rounded-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-0 outline-none transition-colors"
+                  value="0"
+                />
+                <span class="text-[11px] font-medium text-slate-500 mt-1.5"
+                  >Team 1</span
+                >
+              </div>
+              <span class="text-xl sm:text-2xl font-black text-slate-300"
+                >-</span
+              >
+              <div class="flex flex-col items-center">
+                <input
+                  type="number"
+                  id="modal-t2-sets"
+                  min="0"
+                  max="3"
+                  class="w-16 sm:w-20 text-center text-xl sm:text-2xl font-black text-blue-600 px-2 py-2 sm:py-3 rounded-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-0 outline-none transition-colors"
+                  value="0"
+                />
+                <span class="text-[11px] font-medium text-slate-500 mt-1.5"
+                  >Team 2</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail Score (Text) -->
+          <div class="mb-5">
+            <label
+              class="block text-[11px] sm:text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide"
+              >Detail Poin per Set (Opsional)</label
+            >
+            <input
+              type="text"
+              id="modal-score-detail"
+              placeholder="Contoh: 21-19, 15-21, 21-18"
+              class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-xs sm:text-sm"
+            />
+          </div>
+
+          <!-- Winner Selection -->
+          <div class="mb-6">
+            <label
+              class="block text-[11px] sm:text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide"
+              >Pemenang Pertandingan</label
+            >
+            <div class="flex gap-3">
+              <label class="flex-1 cursor-pointer">
+                <input
+                  type="radio"
+                  name="modal-winner"
+                  value="1"
+                  id="modal-winner-1"
+                  class="peer sr-only"
+                />
+                <div
+                  class="p-2.5 text-center border-2 border-slate-200 rounded-lg peer-checked:bg-blue-50 peer-checked:border-blue-600 peer-checked:text-blue-700 font-bold text-xs sm:text-sm text-slate-600 transition-all shadow-sm"
+                >
+                  Team 1 Menang
+                </div>
+              </label>
+              <label class="flex-1 cursor-pointer">
+                <input
+                  type="radio"
+                  name="modal-winner"
+                  value="2"
+                  id="modal-winner-2"
+                  class="peer sr-only"
+                />
+                <div
+                  class="p-2.5 text-center border-2 border-slate-200 rounded-lg peer-checked:bg-blue-50 peer-checked:border-blue-600 peer-checked:text-blue-700 font-bold text-xs sm:text-sm text-slate-600 transition-all shadow-sm"
+                >
+                  Team 2 Menang
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex gap-3 justify-end pt-3 border-t border-slate-100">
+            <button
+              onclick="closeModal()"
+              class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs sm:text-sm transition-colors"
+            >
+              Batal
+            </button>
+            <button
+              onclick="saveScore()"
+              class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-md transition-colors flex items-center"
+            >
+              <i class="fas fa-save mr-2"></i>Simpan
+            </button>
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
 
     <!-- Toast Notification Container -->
     <div
@@ -622,23 +772,6 @@
       // BADMINTON TOURNAMENT MANAGER
       // Google Sheets + Stein API
       // ==========================================
-
-      const IS_ADMIN_PAGE = false;
-
-      // Public page: tidak menampilkan panel Admin.
-      // Jika #admin dipanggil, arahkan ke route admin terpisah.
-      (function handlePublicRoute() {
-        if (window.location.hash.toLowerCase() === "#admin") {
-          window.location.replace("/admin");
-        }
-      })();
-
-      function denyAdminFromPublic() {
-        if (IS_ADMIN_PAGE) return false;
-        showToast("Akses admin dipisahkan ke halaman /admin.", "warning");
-        window.location.href = "/admin";
-        return true;
-      }
 
       const STEIN_API_URL =
         "https://api.steinhq.com/v1/storages/6aaa4dab92b1163e9743ef49";
@@ -667,9 +800,7 @@
       }
 
       function normalizeId(value) {
-        return value === undefined || value === null
-          ? ""
-          : String(value).trim();
+        return value === undefined || value === null ? "" : String(value).trim();
       }
 
       function normalizeMatch(row) {
@@ -789,11 +920,7 @@
           .replaceAll("'", "&#039;");
       }
 
-      async function fetchWithTimeout(
-        url,
-        options = {},
-        timeoutMs = REQUEST_TIMEOUT_MS,
-      ) {
+      async function fetchWithTimeout(url, options = {}, timeoutMs = REQUEST_TIMEOUT_MS) {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -927,7 +1054,8 @@
       async function upsertRows(sheet, rows, existingRows = null) {
         if (!rows.length) return;
 
-        const existing = existingRows || (await getSheet(sheet));
+        const existing =
+          existingRows || (await getSheet(sheet));
 
         const existingIds = new Set(
           existing.map((row) => normalizeId(row.id)).filter(Boolean),
@@ -1028,10 +1156,7 @@
         if (!isRemoteMode()) {
           enableOfflineMode(true);
 
-          if (
-            !Object.keys(localTeams).length &&
-            !Object.keys(localMatches).length
-          ) {
+          if (!Object.keys(localTeams).length && !Object.keys(localMatches).length) {
             if (!restoreLocalSnapshot()) {
               await seedDummyData(true, { remote: false });
             }
@@ -1059,9 +1184,7 @@
           ]);
 
           let teamsData = teamsDataRaw.map(normalizeTeam).filter((t) => t.id);
-          let matchesData = matchesDataRaw
-            .map(normalizeMatch)
-            .filter((m) => m.id);
+          let matchesData = matchesDataRaw.map(normalizeMatch).filter((m) => m.id);
 
           // Kondisi spreadsheet benar-benar kosong:
           // isi dengan demo 16 tim agar aplikasi langsung memiliki struktur valid.
@@ -1134,19 +1257,13 @@
           startPolling();
 
           if (!silent) {
-            showToast(
-              "Data berhasil disinkronkan dari Google Sheets.",
-              "success",
-            );
+            showToast("Data berhasil disinkronkan dari Google Sheets.", "success");
           }
         } catch (error) {
           console.error("Gagal menarik data dari Sheets:", error);
           setConnectionStatus("error", "Sync Error");
 
-          if (
-            !Object.keys(localTeams).length &&
-            !Object.keys(localMatches).length
-          ) {
+          if (!Object.keys(localTeams).length && !Object.keys(localMatches).length) {
             const restored = restoreLocalSnapshot();
 
             if (!restored) {
@@ -1162,7 +1279,10 @@
           }
 
           if (!silent) {
-            showToast(`Gagal sinkronisasi: ${error.message}`, "error");
+            showToast(
+              `Gagal sinkronisasi: ${error.message}`,
+              "error",
+            );
           }
         }
       }
@@ -1327,121 +1447,25 @@
 
       function buildDemoData() {
         const teams = [
-          {
-            id: "t1",
-            teamName: "UDIN SQUAD",
-            player1: "Imat",
-            player2: "Iyan",
-            group: "A",
-          },
-          {
-            id: "t2",
-            teamName: "Mancing Mania",
-            player1: "Bisma",
-            player2: "Qolbi",
-            group: "A",
-          },
-          {
-            id: "t3",
-            teamName: "SQUAD",
-            player1: "Rama",
-            player2: "Fajar",
-            group: "A",
-          },
-          {
-            id: "t4",
-            teamName: "bibit unggul",
-            player1: "Tris",
-            player2: "Dion",
-            group: "A",
-          },
+          { id: "t1", teamName: "UDIN SQUAD", player1: "Imat", player2: "Iyan", group: "A" },
+          { id: "t2", teamName: "Mancing Mania", player1: "Bisma", player2: "Qolbi", group: "A" },
+          { id: "t3", teamName: "SQUAD", player1: "Rama", player2: "Fajar", group: "A" },
+          { id: "t4", teamName: "bibit unggul", player1: "Tris", player2: "Dion", group: "A" },
 
-          {
-            id: "t5",
-            teamName: "Daddies",
-            player1: "Hendra S.",
-            player2: "Ahsan M.",
-            group: "B",
-          },
-          {
-            id: "t6",
-            teamName: "Pramel",
-            player1: "Pramudya K.",
-            player2: "Yeremia R.",
-            group: "B",
-          },
-          {
-            id: "t7",
-            teamName: "AaronChia",
-            player1: "Aaron C.",
-            player2: "Soh W.",
-            group: "B",
-          },
-          {
-            id: "t8",
-            teamName: "OngYew",
-            player1: "Ong Yew S.",
-            player2: "Teo Ee Y.",
-            group: "B",
-          },
+          { id: "t5", teamName: "Daddies", player1: "Hendra S.", player2: "Ahsan M.", group: "B" },
+          { id: "t6", teamName: "Pramel", player1: "Pramudya K.", player2: "Yeremia R.", group: "B" },
+          { id: "t7", teamName: "AaronChia", player1: "Aaron C.", player2: "Soh W.", group: "B" },
+          { id: "t8", teamName: "OngYew", player1: "Ong Yew S.", player2: "Teo Ee Y.", group: "B" },
 
-          {
-            id: "t9",
-            teamName: "HokiKoba",
-            player1: "Takuro H.",
-            player2: "Yugo K.",
-            group: "C",
-          },
-          {
-            id: "t10",
-            teamName: "KogaSaito",
-            player1: "Akira K.",
-            player2: "Taichi S.",
-            group: "C",
-          },
-          {
-            id: "t11",
-            teamName: "RankiReddy",
-            player1: "Satwiksairaj R.",
-            player2: "Chirag S.",
-            group: "C",
-          },
-          {
-            id: "t12",
-            teamName: "ChoiSeo",
-            player1: "Choi S.",
-            player2: "Seo S.",
-            group: "C",
-          },
+          { id: "t9", teamName: "HokiKoba", player1: "Takuro H.", player2: "Yugo K.", group: "C" },
+          { id: "t10", teamName: "KogaSaito", player1: "Akira K.", player2: "Taichi S.", group: "C" },
+          { id: "t11", teamName: "RankiReddy", player1: "Satwiksairaj R.", player2: "Chirag S.", group: "C" },
+          { id: "t12", teamName: "ChoiSeo", player1: "Choi S.", player2: "Seo S.", group: "C" },
 
-          {
-            id: "t13",
-            teamName: "LiangWang",
-            player1: "Liang W.",
-            player2: "Wang C.",
-            group: "D",
-          },
-          {
-            id: "t14",
-            teamName: "LiuOu",
-            player1: "Liu Y.",
-            player2: "Ou X.",
-            group: "D",
-          },
-          {
-            id: "t15",
-            teamName: "AstrupRas",
-            player1: "Kim A.",
-            player2: "Anders S.",
-            group: "D",
-          },
-          {
-            id: "t16",
-            teamName: "LaneVendy",
-            player1: "Ben L.",
-            player2: "Sean V.",
-            group: "D",
-          },
+          { id: "t13", teamName: "LiangWang", player1: "Liang W.", player2: "Wang C.", group: "D" },
+          { id: "t14", teamName: "LiuOu", player1: "Liu Y.", player2: "Ou X.", group: "D" },
+          { id: "t15", teamName: "AstrupRas", player1: "Kim A.", player2: "Anders S.", group: "D" },
+          { id: "t16", teamName: "LaneVendy", player1: "Ben L.", player2: "Sean V.", group: "D" },
         ];
 
         const matches = buildMatchesFromTeams(teams);
@@ -1561,6 +1585,7 @@
         renderGroups();
         renderBracket();
         renderPodium();
+        renderAdmin();
       }
 
       window.switchTab = function (tabName) {
@@ -1569,7 +1594,7 @@
           .forEach((el) => el.classList.add("hidden"));
 
         document.querySelectorAll(".tab-btn").forEach((el) => {
-          {
+          if (el.id !== "tab-admin") {
             el.classList.remove(
               "border-blue-600",
               "text-blue-700",
@@ -1583,8 +1608,11 @@
         if (view) view.classList.remove("hidden");
 
         const activeBtn = document.getElementById(`tab-${tabName}`);
-        if (activeBtn) {
-          activeBtn.classList.remove("border-transparent", "text-slate-500");
+        if (activeBtn && activeBtn.id !== "tab-admin") {
+          activeBtn.classList.remove(
+            "border-transparent",
+            "text-slate-500",
+          );
           activeBtn.classList.add(
             "border-blue-600",
             "text-blue-700",
@@ -1681,15 +1709,11 @@
                 <div class="p-4 sm:p-5 flex-grow space-y-2.5">
                   <div class="flex items-center text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 px-3 py-2 rounded-lg truncate">
                     <i class="fas fa-user-ninja text-blue-500 w-5 flex-shrink-0"></i>
-                    <span class="truncate">${escapeHtml(
-                      team.player1 || "-",
-                    )}</span>
+                    <span class="truncate">${escapeHtml(team.player1 || "-")}</span>
                   </div>
                   <div class="flex items-center text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 px-3 py-2 rounded-lg truncate">
                     <i class="fas fa-user-ninja text-blue-500 w-5 flex-shrink-0"></i>
-                    <span class="truncate">${escapeHtml(
-                      team.player2 || "-",
-                    )}</span>
+                    <span class="truncate">${escapeHtml(team.player2 || "-")}</span>
                   </div>
                 </div>
               </div>
@@ -1723,7 +1747,8 @@
 
         Object.values(localMatches)
           .filter(
-            (match) => match.stage === "group" && match.status === "completed",
+            (match) =>
+              match.stage === "group" && match.status === "completed",
           )
           .forEach((match) => {
             const group = groupData[match.groupName];
@@ -1825,7 +1850,8 @@
             const groupMatches = Object.values(localMatches)
               .filter(
                 (match) =>
-                  match.stage === "group" && match.groupName === groupName,
+                  match.stage === "group" &&
+                  match.groupName === groupName,
               )
               .sort((a, b) => a.id.localeCompare(b.id));
 
@@ -1907,8 +1933,10 @@
         const name1 = team1 ? team1.teamName : "TBD";
         const name2 = team2 ? team2.teamName : "TBD";
 
-        const s1 = match.status === "completed" ? match.t1Sets || "0" : "";
-        const s2 = match.status === "completed" ? match.t2Sets || "0" : "";
+        const s1 =
+          match.status === "completed" ? match.t1Sets || "0" : "";
+        const s2 =
+          match.status === "completed" ? match.t2Sets || "0" : "";
 
         const winner1 = match.winnerId === match.team1Id;
         const winner2 = match.winnerId === match.team2Id;
@@ -1979,9 +2007,13 @@
 
         if (!qf || !sf || !f || !bf) return;
 
-        qf.innerHTML = ["q1", "q2", "q3", "q4"].map(createBracketCard).join("");
+        qf.innerHTML = ["q1", "q2", "q3", "q4"]
+          .map(createBracketCard)
+          .join("");
 
-        sf.innerHTML = ["s1", "s2"].map(createBracketCard).join("");
+        sf.innerHTML = ["s1", "s2"]
+          .map(createBracketCard)
+          .join("");
 
         f.innerHTML = createBracketCard("f1");
         bf.innerHTML = createBracketCard("b1");
@@ -2028,7 +2060,8 @@
           }
 
           if (loser) {
-            document.getElementById("podium-2-team").innerText = loser.teamName;
+            document.getElementById("podium-2-team").innerText =
+              loser.teamName;
             document.getElementById(
               "podium-2-players",
             ).innerText = `${loser.player1} & ${loser.player2}`;
@@ -2086,13 +2119,11 @@
             return `
               <div
                 class="p-2.5 sm:p-3 border-b border-slate-100 flex items-center justify-between ${
-                  canEdit ? "hover:bg-slate-50 cursor-pointer" : "opacity-50"
-                } transition-colors"
-                ${
                   canEdit
-                    ? `onclick="openScoreModal('${escapeHtml(match.id)}')"`
-                    : ""
-                }
+                    ? "hover:bg-slate-50 cursor-pointer"
+                    : "opacity-50"
+                } transition-colors"
+                ${canEdit ? `onclick="openScoreModal('${escapeHtml(match.id)}')"` : ""}
               >
                 <div class="flex items-center gap-2 sm:gap-3 w-full">
                   <div class="w-10 sm:w-12 text-center text-[11px] font-black text-slate-400 uppercase bg-slate-100 rounded py-1 border border-slate-200 flex-shrink-0">
@@ -2169,7 +2200,6 @@
       }
 
       window.openScoreModal = function (matchId) {
-        if (denyAdminFromPublic()) return;
         const id = normalizeId(matchId);
         const match = localMatches[id];
 
@@ -2198,9 +2228,11 @@
         document.getElementById("modal-team2-name").innerText =
           localTeams[match.team2Id]?.teamName || "TBD";
 
-        document.getElementById("modal-t1-sets").value = match.t1Sets || "0";
+        document.getElementById("modal-t1-sets").value =
+          match.t1Sets || "0";
 
-        document.getElementById("modal-t2-sets").value = match.t2Sets || "0";
+        document.getElementById("modal-t2-sets").value =
+          match.t2Sets || "0";
 
         document.getElementById("modal-score-detail").value =
           match.scoreDetail || "";
@@ -2421,7 +2453,6 @@
       }
 
       window.saveScore = async function () {
-        if (denyAdminFromPublic()) return;
         // BUG utama versi lama diperbaiki:
         // ID pertandingan dikunci sebelum closeModal/reset state.
         const matchId = normalizeId(currentEditingMatchId);
@@ -2430,8 +2461,12 @@
         const match = localMatches[matchId];
         if (!match) return;
 
-        const t1Sets = Number(document.getElementById("modal-t1-sets").value);
-        const t2Sets = Number(document.getElementById("modal-t2-sets").value);
+        const t1Sets = Number(
+          document.getElementById("modal-t1-sets").value,
+        );
+        const t2Sets = Number(
+          document.getElementById("modal-t2-sets").value,
+        );
 
         const scoreDetail = document
           .getElementById("modal-score-detail")
@@ -2441,7 +2476,9 @@
 
         if (document.getElementById("modal-winner-1").checked) {
           winnerId = normalizeId(match.team1Id);
-        } else if (document.getElementById("modal-winner-2").checked) {
+        } else if (
+          document.getElementById("modal-winner-2").checked
+        ) {
           winnerId = normalizeId(match.team2Id);
         }
 
@@ -2458,7 +2495,10 @@
           t1Sets > 3 ||
           t2Sets > 3
         ) {
-          showToast("Jumlah set harus berupa angka 0 sampai 3.", "warning");
+          showToast(
+            "Jumlah set harus berupa angka 0 sampai 3.",
+            "warning",
+          );
           return;
         }
 
@@ -2471,7 +2511,10 @@
           (winnerId === match.team1Id && t1Sets < t2Sets) ||
           (winnerId === match.team2Id && t2Sets < t1Sets)
         ) {
-          showToast("Pemenang tidak sesuai dengan jumlah set.", "warning");
+          showToast(
+            "Pemenang tidak sesuai dengan jumlah set.",
+            "warning",
+          );
           return;
         }
 
@@ -2512,7 +2555,10 @@
           showToast("Menyimpan skor ke Google Sheets...", "info");
 
           // Simpan match utama + propagasi bracket dalam satu alur terkontrol.
-          await persistMatches([matchId, ...propagation.affectedIds]);
+          await persistMatches([
+            matchId,
+            ...propagation.affectedIds,
+          ]);
 
           // Verifikasi server dengan GET baru.
           const verifiedRows = await getSheet(SHEETS.MATCHES);
@@ -2523,7 +2569,10 @@
               .map((row) => [row.id, row]),
           );
 
-          const idsToVerify = [matchId, ...propagation.affectedIds];
+          const idsToVerify = [
+            matchId,
+            ...propagation.affectedIds,
+          ];
 
           for (const id of idsToVerify) {
             const remote = verifiedMap[id];
@@ -2569,9 +2618,11 @@
           localMatches[matchId] = currentPrevious;
 
           // Rollback propagasi bracket yang sempat berubah lokal.
-          Object.entries(propagation.previous).forEach(([id, previous]) => {
-            localMatches[id] = previous;
-          });
+          Object.entries(propagation.previous).forEach(
+            ([id, previous]) => {
+              localMatches[id] = previous;
+            },
+          );
 
           renderAll();
           setConnectionStatus("error", "Save Error");
@@ -2617,9 +2668,11 @@
       }
 
       window.resolveGroupToKnockout = async function () {
-        if (denyAdminFromPublic()) return;
         if (syncInProgress) {
-          showToast("Masih ada proses sinkronisasi yang berjalan.", "warning");
+          showToast(
+            "Masih ada proses sinkronisasi yang berjalan.",
+            "warning",
+          );
           return;
         }
 
@@ -2713,7 +2766,10 @@
           persistLocalSnapshot();
 
           if (!isRemoteMode()) {
-            showToast("Bracket berhasil dibuat di Local Mode.", "success");
+            showToast(
+              "Bracket berhasil dibuat di Local Mode.",
+              "success",
+            );
             return;
           }
 
@@ -2776,7 +2832,10 @@
         } catch (error) {
           console.error("Generate bracket gagal:", error);
           setConnectionStatus("error", "Bracket Error");
-          showToast(`Generate bracket gagal: ${error.message}`, "error");
+          showToast(
+            `Generate bracket gagal: ${error.message}`,
+            "error",
+          );
         } finally {
           syncInProgress = false;
           startPolling();
@@ -2784,7 +2843,6 @@
       };
 
       window.syncNow = async function () {
-        if (denyAdminFromPublic()) return;
         if (syncInProgress) {
           showToast(
             "Sedang ada proses sinkronisasi. Tunggu proses selesai.",
