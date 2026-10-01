@@ -137,7 +137,8 @@
             <p
               class="text-slate-300 font-medium text-xs sm:text-sm lg:text-base flex items-center gap-1.5 truncate"
             >
-              <i class="fas fa-map-marker-alt text-blue-400"></i> Gor Pasanggrahan, Ujung Berung, Bandung | Doubles
+              <i class="fas fa-map-marker-alt text-blue-400"></i> Gor
+              Pasanggrahan, Ujung Berung, Bandung | Doubles
             </p>
           </div>
 
@@ -516,17 +517,17 @@
           </div>
 
           <!-- 4th Place List Style -->
-          
         </div>
       </section>
-
     </main>
     <!-- PROFESSIONAL FOOTER IDENTIFICATION -->
     <footer
       class="bg-slate-900 text-slate-400 border-t border-slate-800 flex-shrink-0 relative z-10"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-center">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-center"
+        >
           <!-- Community Profile -->
           <div
             class="flex flex-col items-center md:items-start text-center md:text-left"
@@ -541,7 +542,15 @@
             </div>
             <div class="flex items-center gap-2 mb-2 mt-2">
               <div>
-                <a href="http://annurimat.vercel.app" target="_blank" rel="noopener noreferrer"><img src="img/device-shot.png" class="rounded-lg w-40 sm:w-40 max-h-24 object-contain" alt="Pratinjau aplikasi BadminTour" /></a>
+                <a
+                  href="http://annurimat.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><img
+                    src="img/device-shot.png"
+                    class="rounded-lg w-40 sm:w-40 max-h-24 object-contain"
+                    alt="Pratinjau aplikasi BadminTour"
+                /></a>
               </div>
             </div>
             <p class="text-xs text-slate-400 leading-relaxed">
@@ -573,8 +582,7 @@
               >Developed By</span
             >
             <p class="text-xs font-family flex items-center gap-1.5">
-              <i class="fas fa-code text-blue-400"></i> Suka Nepak Tech
-              Division
+              <i class="fas fa-code text-blue-400"></i> Suka Nepak Tech Division
             </p>
             <p class="text-[11px] text-slate-500 mt-1">
               Supprorted by
@@ -631,7 +639,7 @@
       }
 
       const STEIN_API_URL =
-        "https://api.steinhq.com/v1/storages/6aaa4dab92b1163e9743ef49";
+        "https://api.steinhq.com/v1/storages/6abddcab92b1163e974c560a";
 
       const SHEETS = {
         TEAMS: "Teams",
@@ -1630,11 +1638,12 @@
 
             return `
               <div class="bg-white p-3.5 sm:p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full ${
-                  colors[idx % colors.length]
-                } flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 shadow-inner">
-                  ${escapeHtml(initials)}
-                </div>
+                <img
+                    src="https://api.dicebear.com/10.x/adventurer/svg?backgroundColor=ff8fab,ffb703,4cc9a7,4d96ff,b57bff&seed=${
+                      player.name
+                    }"
+                    alt="avatar" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full
+                } flex items-center justify-center font-bold text-base sm:text-lg mb-2.5 shadow-inner"/>
                 <h4 class="font-bold text-slate-800 text-xs sm:text-sm w-full truncate">
                   ${escapeHtml(player.name)}
                 </h4>
