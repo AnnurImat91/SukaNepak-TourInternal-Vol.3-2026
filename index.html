@@ -253,7 +253,7 @@
               Tim & Pasangan (Ganda)
             </h2>
             <p class="text-slate-500 text-xs sm:text-sm mt-0.5">
-              Daftar tim ganda putra dan pembagian grup awal.
+              Daftar tim ganda dan pembagian grup awal.
             </p>
           </div>
           <div
@@ -340,7 +340,7 @@
             <!-- Finals & Bronze -->
             <div class="bracket-col w-[260px] gap-6 justify-center relative">
               <div
-                class="absolute -top-10 text-amber-500 font-bold uppercase tracking-widest text-xs sm:text-sm text-center w-[260px]"
+                class="-top-10 text-amber-500 font-bold uppercase tracking-widest text-xs sm:text-sm text-center w-[260px]"
               >
                 Championship
               </div>
@@ -549,7 +549,7 @@
                   rel="noopener noreferrer"
                   ><img
                     src="img/device-shot.png"
-                    class="rounded-lg w-40 sm:w-40 max-h-24 object-contain"
+                    class="rounded-lg w-40 border-2 border-lime-200 sm:w-40 max-h-24 object-contain"
                     alt="Pratinjau aplikasi BadminTour"
                 /></a>
               </div>
@@ -1073,7 +1073,7 @@
           if (!teamsData.length && !matchesData.length) {
             if (!silent) {
               showToast(
-                "Spreadsheet kosong. Menginisialisasi data demo ke Google Sheets...",
+                "Database kosong. Menginisialisasi data demo ke Database...",
                 "info",
               );
             }
@@ -1129,7 +1129,7 @@
           persistLocalSnapshot();
           renderAll();
 
-          setConnectionStatus("connected", "Google Sheets Connected");
+          setConnectionStatus("connected", "Database API Connected");
 
           if (!isDataLoaded) {
             switchTab("bracket");
@@ -1140,7 +1140,7 @@
 
           if (!silent) {
             showToast(
-              "Data berhasil disinkronkan dari Google Sheets.",
+              "Data berhasil disinkronkan dari Database.",
               "success",
             );
           }
@@ -1503,7 +1503,7 @@
 
           persistLocalSnapshot();
           renderAll();
-          setConnectionStatus("connected", "Google Sheets Connected");
+          setConnectionStatus("connected", "Database API Connected");
           startPolling();
 
           showToast(
@@ -1522,7 +1522,7 @@
         if (!silent) {
           const confirmed = confirm(
             remote
-              ? "Reset seluruh data Teams & Matches di Google Sheets menjadi Demo 16 Tim?"
+              ? "Reset seluruh data Teams & Matches di Database menjadi Demo 16 Tim?"
               : "Generate 16 Tim & Jadwal Turnamen Demo secara lokal?",
           );
 
@@ -2515,7 +2515,7 @@
           }
 
           setConnectionStatus("syncing", "Saving Score...");
-          showToast("Menyimpan skor ke Google Sheets...", "info");
+          showToast("Menyimpan skor ke Database...", "info");
 
           // Simpan match utama + propagasi bracket dalam satu alur terkontrol.
           await persistMatches([matchId, ...propagation.affectedIds]);
@@ -2563,7 +2563,7 @@
           document.getElementById("score-modal").classList.add("hidden");
           currentEditingMatchId = null;
 
-          setConnectionStatus("connected", "Google Sheets Connected");
+          setConnectionStatus("connected", "Database API Connected");
           showToast(
             `Skor Match ${matchId.toUpperCase()} berhasil disimpan & diverifikasi.`,
             "success",
@@ -2631,7 +2631,7 @@
 
         if (
           !confirm(
-            "Generate bracket otomatis dari 2 tim teratas tiap grup dan sinkronkan ke Google Sheets?",
+            "Generate bracket otomatis dari 2 tim teratas tiap grup dan sinkronkan ke Database?",
           )
         ) {
           return;
@@ -2725,7 +2725,7 @@
 
           setConnectionStatus("syncing", "Saving Bracket...");
           showToast(
-            "Menyimpan bracket hasil klasemen ke Google Sheets...",
+            "Menyimpan bracket hasil klasemen ke Database...",
             "info",
           );
 
@@ -2773,10 +2773,10 @@
 
           persistLocalSnapshot();
           renderAll();
-          setConnectionStatus("connected", "Google Sheets Connected");
+          setConnectionStatus("connected", "Database API Connected");
 
           showToast(
-            "Bracket berhasil dibuat, disimpan, dan diverifikasi dari Google Sheets.",
+            "Bracket berhasil dibuat, disimpan, dan diverifikasi dari Database.",
             "success",
           );
         } catch (error) {
